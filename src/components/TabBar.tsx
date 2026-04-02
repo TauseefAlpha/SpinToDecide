@@ -3,7 +3,7 @@ import {
   View, Text, StyleSheet, Pressable,
   Platform, Animated, Dimensions,
 } from 'react-native';
-import { COLORS, TYPOGRAPHY, SPACING, BORDER_RADIUS } from '../theme/colors';
+import { TYPOGRAPHY, SPACING, BORDER_RADIUS } from '../theme/colors';
 
 const { width: SW } = Dimensions.get('window');
 
@@ -22,9 +22,10 @@ export const TabBar: React.FC<TabBarProps> = ({ activeTab, onTabChange }) => {
   const activeIndex = TABS.findIndex(t => t.key === activeTab);
 
   // Pill slide
-  const pillX   = useRef(new Animated.Value(activeIndex)).current;
-  // Icon bounce per tab
-  const bounces = TABS.map(() => useRef(new Animated.Value(1)).current);
+  const pillX = useRef(new Animated.Value(activeIndex)).current;
+
+  // Icon bounce animations for each tab
+  const bounces = useRef(TABS.map(() => new Animated.Value(1))).current;
 
   useEffect(() => {
     Animated.spring(pillX, {
@@ -32,7 +33,7 @@ export const TabBar: React.FC<TabBarProps> = ({ activeTab, onTabChange }) => {
       useNativeDriver: true,
       speed: 18, bounciness: 6,
     }).start();
-  }, [activeIndex]);
+  }, [activeIndex, pillX]);
 
   const TAB_W  = (SW - SPACING.lg * 2 - SPACING.sm * 2) / TABS.length;
   const pillTX = pillX.interpolate({
