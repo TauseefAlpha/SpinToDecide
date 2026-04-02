@@ -36,7 +36,7 @@ export const ResultModal: React.FC<ResultModalProps> = ({ visible, winningOption
         Animated.timing(opacityAnim, { toValue: 0,    duration: 150, useNativeDriver: true }),
       ]).start();
     }
-  }, [visible]);
+  }, [visible, scaleAnim, opacityAnim]);
 
   if (!winningOption) return null;
 

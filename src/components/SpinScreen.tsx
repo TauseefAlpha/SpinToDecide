@@ -6,13 +6,14 @@ import {
 } from 'react-native';
 import { useOptions } from '../hooks/useOptionsContext';
 import { SpinWheel } from './SpinWheel';
-import { COLORS, SEGMENT_COLORS, TYPOGRAPHY, SPACING, BORDER_RADIUS } from '../theme/colors';
+import { SEGMENT_COLORS, TYPOGRAPHY, SPACING, BORDER_RADIUS } from '../theme/colors';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
 const { width: SW, height: SH } = Dimensions.get('window');
+console.log('sw', SW)
 
 // ── Option chip ──────────────────────────────────────────────────────────────
 const Chip: React.FC<{ text: string; color: string; onRemove: () => void }> = ({

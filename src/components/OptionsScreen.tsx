@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { AddOption } from './AddOption';
 import { OptionList } from './OptionList';
 import { useOptions } from '../hooks/useOptionsContext';
 import { COLORS, TYPOGRAPHY, SPACING } from '../theme/colors';
 
 export const OptionsScreen: React.FC = () => {
-  const { options } = useOptions();
 
   return (
     <FlatList

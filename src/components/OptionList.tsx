@@ -5,7 +5,6 @@ import {
   StyleSheet,
   FlatList,
   Pressable,
-  Animated as RNAnimated,
 } from 'react-native';
 import { Trash2 } from 'lucide-react-native';
 import { useOptions, Option } from '../hooks/useOptionsContext';

@@ -14,7 +14,12 @@ platform :android do
     # 2. Build App Bundle
     gradle(
       task: 'bundle',
-      build_type: 'Release'
+      build_type: 'Release',
+      properties: {
+        "MYAPP_UPLOAD_STORE_PASSWORD" => ENV['MYAPP_UPLOAD_STORE_PASSWORD'],
+        "MYAPP_UPLOAD_KEY_ALIAS" => ENV['MYAPP_UPLOAD_KEY_ALIAS'],
+        "MYAPP_UPLOAD_KEY_PASSWORD" => ENV['MYAPP_UPLOAD_KEY_PASSWORD']
+      }
     )
 
     # 3. Upload to Google Play (Optional - needs JSON key)

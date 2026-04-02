@@ -28,7 +28,7 @@ import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { useOptions, Option } from '../hooks/useOptionsContext';
 import { useHistory } from '../hooks/useHistoryContext';
 import { ResultModal } from './ResultModal';
-import { COLORS, SEGMENT_COLORS, SHADOWS, SPACING, TYPOGRAPHY, BORDER_RADIUS } from '../theme/colors';
+import { SEGMENT_COLORS, SPACING, TYPOGRAPHY, BORDER_RADIUS } from '../theme/colors';
 
 const { width } = Dimensions.get('window');
 const WHEEL_SIZE = Math.min(width * 0.82, 320);
@@ -49,18 +49,18 @@ const createSlicePath = (r: number, start: number, end: number) => {
 export const SpinWheel: React.FC = () => {
   const { options } = useOptions();
   const { addEntry } = useHistory();
-  const rotation  = useSharedValue(0);
-  const btnScale  = useSharedValue(1);
-  const [isSpinning, setIsSpinning]   = useState(false);
+  const rotation = useSharedValue(0);
+  const btnScale = useSharedValue(1);
+  const [isSpinning, setIsSpinning] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [winningOption, setWinningOption] = useState<Option | null>(null);
 
   const handleSpinEnd = (finalAngle: number) => {
     setIsSpinning(false);
-    const norm  = finalAngle % 360;
-    const ptr   = (360 - norm) % 360;
-    const seg   = 360 / Math.max(options.length, 1);
-    const idx   = Math.floor(ptr / seg);
+    const norm = finalAngle % 360;
+    const ptr = (360 - norm) % 360;
+    const seg = 360 / Math.max(options.length, 1);
+    const idx = Math.floor(ptr / seg);
     const winner = options[idx];
     setWinningOption(winner);
     addEntry(winner);
@@ -81,8 +81,8 @@ export const SpinWheel: React.FC = () => {
     }, (done) => { if (done) runOnJS(handleSpinEnd)(total); });
   };
 
-  const onPressIn  = () => { btnScale.value = withSpring(0.93, { damping: 15 }); };
-  const onPressOut = () => { btnScale.value = withSpring(1,    { damping: 12 }); };
+  const onPressIn = () => { btnScale.value = withSpring(0.93, { damping: 15 }); };
+  const onPressOut = () => { btnScale.value = withSpring(1, { damping: 12 }); };
 
   const wheelStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],
@@ -92,7 +92,7 @@ export const SpinWheel: React.FC = () => {
   }));
 
   const segAngle = options.length > 0 ? 360 / options.length : 360;
-  const canSpin  = !isSpinning && options.length > 0;
+  const canSpin = !isSpinning && options.length > 0;
 
   return (
     <View style={styles.container}>
@@ -117,7 +117,7 @@ export const SpinWheel: React.FC = () => {
           >
             <Defs>
               <RadialGradient id="hubGrad" cx="50%" cy="50%" r="50%">
-                <Stop offset="0%"   stopColor="#FFFFFF" stopOpacity="1" />
+                <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
                 <Stop offset="100%" stopColor="#E8E0FF" stopOpacity="1" />
               </RadialGradient>
             </Defs>
@@ -127,14 +127,14 @@ export const SpinWheel: React.FC = () => {
               <Circle cx="0" cy="0" r={RADIUS} fill="rgba(255,255,255,0.08)" />
             ) : (
               options.map((opt, i) => {
-                const color       = SEGMENT_COLORS[i % SEGMENT_COLORS.length];
-                const startAngle  = i * segAngle;
-                const endAngle    = startAngle + segAngle;
-                const path        = createSlicePath(RADIUS, startAngle, endAngle);
-                const midAngle    = startAngle + segAngle / 2;
-                const textPos     = polarToCartesian(0, 0, RADIUS * 0.62, midAngle);
-                const textRot     = midAngle - 90;
-                const label       = opt.text.length > 8 ? opt.text.slice(0, 7) + '…' : opt.text;
+                const color = SEGMENT_COLORS[i % SEGMENT_COLORS.length];
+                const startAngle = i * segAngle;
+                const endAngle = startAngle + segAngle;
+                const path = createSlicePath(RADIUS, startAngle, endAngle);
+                const midAngle = startAngle + segAngle / 2;
+                const textPos = polarToCartesian(0, 0, RADIUS * 0.62, midAngle);
+                const textRot = midAngle - 90;
+                const label = opt.text.length > 8 ? opt.text.slice(0, 7) + '…' : opt.text;
 
                 return (
                   <G key={opt.id}>
