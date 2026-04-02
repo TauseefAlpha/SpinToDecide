@@ -1,45 +1,59 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { OptionsProvider } from './src/hooks/useOptionsContext';
+import { HistoryProvider } from './src/hooks/useHistoryContext';
+import { SpinScreen } from './src/components/SpinScreen';
+import { OptionsScreen } from './src/components/OptionsScreen';
+import { HistoryScreen } from './src/components/HistoryScreen';
+import { TabBar } from './src/components/TabBar';
+import { COLORS } from './src/theme/colors';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
+// ---------- App Shell ----------
 function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
+  const [activeTab, setActiveTab] = useState('spin');
+
+  const renderScreen = () => {
+    switch (activeTab) {
+      case 'options':  return <OptionsScreen />;
+      case 'history':  return <HistoryScreen />;
+      default:         return <SpinScreen />;
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
+    <View style={[styles.root, { paddingTop: insets.top }]}>
+      <View style={styles.screenArea}>
+        {renderScreen()}
+      </View>
+      <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
     </View>
   );
 }
 
+// ---------- Root ----------
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.bgDeep} translucent={false} />
+      <OptionsProvider>
+        <HistoryProvider>
+          <AppContent />
+        </HistoryProvider>
+      </OptionsProvider>
+    </SafeAreaProvider>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
+  root: {
+    flex: 1,
+    backgroundColor: COLORS.bgDeep,
+  },
+  screenArea: {
     flex: 1,
   },
 });
 
-export default App;
+

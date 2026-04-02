@@ -1,4 +1,4 @@
-package com.whattoeat
+package com.spindecision
 
 import android.app.Application
 import com.facebook.react.PackageList

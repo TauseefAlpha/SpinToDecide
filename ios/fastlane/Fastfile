@@ -1,0 +1,26 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Runs all the tests"
+  lane :test do
+    run_tests(scheme: "WhattoEat")
+  end
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  lane :beta do
+    # 1. Version bump
+    sh("cd ../.. && npm run bump")
+
+    # 2. Update CocoaPods
+    cocoapods
+
+    # 3. Build IPA
+    build_app(
+      scheme: "WhattoEat",
+      export_method: "app-store"
+    )
+
+    # 4. Upload to TestFlight (Optional - needs API key)
+    # upload_to_testflight
+  end
+end
