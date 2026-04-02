@@ -33,6 +33,8 @@ const OptionItem: React.FC<{ item: Option; onRemove: (id: string) => void }> = (
   );
 };
 
+const Separator = () => <View style={styles.separator} />;
+
 export const OptionList: React.FC = () => {
   const { options, removeOption } = useOptions();
 
@@ -58,7 +60,7 @@ export const OptionList: React.FC = () => {
           renderItem={({ item }) => (
             <OptionItem item={item} onRemove={removeOption} />
           )}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ItemSeparatorComponent={Separator}
         />
       )}
     </View>

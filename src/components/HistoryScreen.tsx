@@ -31,6 +31,8 @@ const HistoryItem: React.FC<{ item: HistoryEntry; index: number }> = ({ item, in
   </View>
 );
 
+const HistorySeparator = () => <View style={{ height: SPACING.sm }} />;
+
 export const HistoryScreen: React.FC = () => {
   const { history, clearHistory } = useHistory();
 
@@ -64,7 +66,7 @@ export const HistoryScreen: React.FC = () => {
           data={history}
           keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => <HistoryItem item={item} index={index} />}
-          ItemSeparatorComponent={() => <View style={{ height: SPACING.sm }} />}
+          ItemSeparatorComponent={HistorySeparator}
           contentContainerStyle={styles.list}
           showsVerticalScrollIndicator={false}
         />

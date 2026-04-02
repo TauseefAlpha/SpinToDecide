@@ -21,7 +21,7 @@ export const OptionsScreen: React.FC = () => {
         </View>
       }
       keyExtractor={() => 'header'}
-      contentContainerStyle={{ paddingBottom: 80 }}
+      contentContainerStyle={styles.listContent}
     />
   );
 };
@@ -46,5 +46,8 @@ const styles = StyleSheet.create({
     fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textSecondary,
     marginTop: 4,
+  },
+  listContent: {
+    paddingBottom: 80,
   },
 });
