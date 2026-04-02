@@ -22,8 +22,8 @@ platform :android do
       }
     )
 
-    # 3. Upload to Google Play (Optional - needs JSON key)
-    # upload_to_play_store(track: 'internal')
+    # 3. Upload to Google Play
+    upload_to_play_store(track: 'internal')
   end
 
   desc "Build APK"

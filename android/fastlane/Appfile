@@ -1,2 +1,2 @@
-json_key_file("") # Path to the json secret file - leave empty for now
+json_key_file("fastlane-play-service-account.json") # Path to the json secret file - dynamically created by CI
 package_name("com.spindecision") # The package name of your app
