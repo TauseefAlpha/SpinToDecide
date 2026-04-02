@@ -66,6 +66,15 @@ yarn-error.log
 # testing
 /coverage
 
+# TypeScript build files
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+src/**/*.d.ts.map
+__tests__/**/*.js
+__tests__/**/*.js.map
+__tests__/**/*.d.ts
+
 # Yarn
 .yarn/*
 !.yarn/patches
